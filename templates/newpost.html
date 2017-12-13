@@ -3,16 +3,17 @@
 {% block content %}
     <h1>New Post</h1>
     
-    <form method='post'>
+    <form method='post' action="/newpost">
         <label>
             Title:
-            <input id="newpost-title" type="text" name="title" />
+            <input id="newpost-title" type="text" name="title" value="{{ new_title_post}}" />
         </label>
+        <input type="hidden" name="id" value="{{newpost_id}}" />
         <br>
         <br>
         <lable>
             Post:
-            <textarea id="newpost-body" name="body">{{body}}</textarea>
+            <textarea id="newpost-body"  name="body">{{new_body_post}}</textarea>
         </lable>
         <input type="submit" value='Add Post' />
     </form>

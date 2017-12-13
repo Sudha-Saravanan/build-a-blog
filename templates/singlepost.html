@@ -1,7 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>{{ entry.title }}</h1>
-    <p>{{ entry.body }}</p>
-    <p>{{ entry.created }}</p>
+{% for new_post in post_list %}
+<li>
+    <h2>{{new_post.title}}</h2>
+    
+    <p>{{new_post.body}}</p>
+    
+    <p>{{new_post.created}}</p>
+</li>
+
+{% endfor %}
 {% endblock %}

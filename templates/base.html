@@ -4,9 +4,38 @@
         <title>{{title}}</title>
     </head>
 <body>
-    <h1 style="display:inline-block;">ManiCity  <i style="font-family:courier; color:rgb(4, 0, 255); font-size:12px;">Your custom Tees</i></h1>
-    {% block content %}
-    {% endblock %}
+    <table style= "width:100%">
+        <tr>
+            <th>
+                <img src="manicitylogo.jpg" alt="Logo">
+            </th>
+            <th style="display:inline-block;" text-align="center">ManiCity  <i style="font-family:courier; color:rgb(4, 0, 255); font-size:12px;">Your custom Tees</i>
+
+            </th>
+            <th>
+                <h4 align="left" text-align="right"><a href="">Login</a>&nbsp;|&nbsp;<a href="">Register</a></h4>
+            </th>
+        </tr>
+        <tr>
+            <td>
+                Search bar
+                <br>
+                <a href="./">Home</a>
+                <a href="./newpost">Add Post</a>
+            </td>
+            <td>
+                    {% block content %}
+                    {% endblock %}
+
+            </td>
+            <td>
+                Display Time and calendar
+            </td>
+        </tr>
+
+    </table>
+    
+    
 
 </body>
 </html>

@@ -1,15 +1,19 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>All Entry</h1>
-    {% if post_list|length ==0 %}
-        <p>No post yet</p>
-    {% else%}
+    <h1>All Entries</h1>
+    
         <ul>
             {% for new_post in post_list %}
-                <li>{{new_post.title, new_post.body}}</li>
+                
+                <li>
+                    <h2>
+                        <a href="/blog?id={{new_post.id}}">{{new_post.title}}</a>
+                    </h2>
+                    <p>{{new_post.body}}</p>
+                    <p>{{new_post.created}}</p>
+                    
             
             {% endfor %}        
         </ul>
-    {% endif %}
 {% endblock %}
