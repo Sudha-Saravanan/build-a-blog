@@ -1,14 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>All Entries</h1>
+    <h1>All Entry</h1>
     {% if post_list|length ==0 %}
         <p>No post yet</p>
     {% else%}
-    <ul>
-        {% for title in post_list %}
-            <li>{{title}}</li>
-        {% endfor %}
-    </ul>
+        <ul>
+            {% for new_post in post_list %}
+                <li>{{new_post.title, new_post.body}}</li>
+            
+            {% endfor %}        
+        </ul>
     {% endif %}
 {% endblock %}
