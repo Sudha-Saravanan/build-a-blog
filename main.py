@@ -41,7 +41,8 @@ def display_blog_entries():
     # TODO refactor to use routes with variables instead of GET parameters
     entry_id = request.args.get('id')
     if (entry_id):
-        new_post = Entry.query.get(entry_id)
+        new_post = Entry.query.all(entry_id)
+        #post_list = Entry.query.get(new_post).all()
         return render_template('singlepost.html', title="Blog Entry", new_post=new_post)
 
     # if we're here, we need to display all the entries
