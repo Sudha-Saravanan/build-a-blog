@@ -23,7 +23,7 @@ class Entry(db.Model):
         self.created = created
 
     def is_valid(self):
-        if self.title and self.body and self.created:
+        if self.title and self.body:
             return True
         else:
             return False
@@ -32,6 +32,7 @@ class Entry(db.Model):
 
 @app.route("/")
 def index():
+    #TODO The /blog route displays all the blog posts.
     return redirect("/blog")
     #post_list = Entry.query.all()
     #return render_template('allentries.html', title="All Entries", post_list=post_list)
@@ -39,63 +40,43 @@ def index():
 @app.route("/blog")
 def display_blog_entries():
     # TODO refactor to use routes with variables instead of GET parameters
-    entry_id = request.args.get('id')
-    if (entry_id):
-        new_post = Entry.query.all(entry_id)
+    
+    if request.args:
+        blogpost_id = request.args.get('id')
+        blogpost = Entry.query.get(blogpost_id)
         #post_list = Entry.query.get(new_post).all()
-        return render_template('singlepost.html', title="Blog Entry", new_post=new_post)
+        return render_template('singlepost.html', title="Blog Entry", blogpost=blogpost)
 
     # if we're here, we need to display all the entries
     # TODO store sort direction in session[] so we remember user's preference
     sort = request.args.get('sort')
     if (sort=="newest"):
-        post_list = Entry.query.order_by(Entry.created.desc()).all()
+        blogpost_list = Entry.query.order_by(Entry.created.DESC()).all()
     else:
-        post_list = Entry.query.all()   
-        return render_template('allentries.html', title="All Entries", post_list=post_list)
+        blogpost_list = Entry.query.all()   
+    return render_template('allentries.html', title="All Entries", blogpost_list=blogpost_list)
 
 @app.route("/newpost", methods=['POST', 'GET'])
 def newpost():
-       
-    if request.method == 'POST':
-        new_title_post = request.form['title']
-        new_body_post = request.form['body']
-        new_post= Entry(new_title_post, new_body_post)
 
-        if new_post.is_valid():
-            db.session.add(new_post)
+    if request.method =='POST':
+        newpost_title = request.form['title']
+        newpost_body = request.form['body']
+        newpost= Entry(newpost_title, newpost_body)
+        
+        if newpost.is_valid():
+            db.session.add(newpost)
             db.session.commit()
-
-            url = "/blog?id=" + str(new_post.id)
+            url = "/blog?id=" + str(newpost.id)
             return redirect(url)
-        else:
-            flash("Title and Body are required to post in the blog")
-            return render_template('newpost.html', title="New Post", new_title_post=new_title_post, new_body_post=new_body_post)
-
+        elif newpost_title =='':
+            flash("Title is required to post in the blog")
+            return render_template('newpost.html',title="New Post")
+        elif (newpost_body == ''):
+            flash("Body is required to post in the blog")
+            return render_template('newpost.html',title="New Post")
     else:
         return render_template('newpost.html',title="New Post")
-
-#@app.route("/singlepost")
-#def singlepost():
-    #post_list = Entry.query.all()
-    #return render_template('singlepost.html', title="Single Post", post_list=post_list)
-
-    #if request.args:
-     #   newpost_id = request.args.get('id')
-      #  newpost_body = Entry.query.get(newpost_id)
-       # newpost_title = Entry.query.get(newpost_id)
-        #latest_post = Entry(newpost_title, newpost_body)
-    #return render_template('singlepost.html', title='Single Post', latest_post=latest_post)
-    #if request.method == 'POST':
-     #   new_title = request.form['title']
-      #  new_body = request.form['body']
-       # new_post= Entry(new_title, new_body)
-        #new_id = request.args.get('id')
-        #if (new_id == newpost_id):
-            #entry = Entry.query.get(entry_id)
-         #   return render_template('singlepost.html', title="Blog Entry", new_post=new_post)
-
-
-
+        
 if __name__ == '__main__':
     app.run()

@@ -6,14 +6,13 @@
     <form method='post' action="/newpost">
         <label>
             Title:
-            <input id="newpost-title" type="text" name="title" value="{{ new_title_post}}" />
+            <input id="newpost-title" type="text" name="title" value="{{newpost_title}}" />
         </label>
-        <input type="hidden" name="id" value="{{newpost_id}}" />
         <br>
         <br>
         <lable>
             Post:
-            <textarea id="newpost-body"  name="body">{{new_body_post}}</textarea>
+            <textarea id="newpost-body"  name="body">{{newpost_body}}</textarea>
         </lable>
         <input type="submit" value='Add Post' />
     </form>

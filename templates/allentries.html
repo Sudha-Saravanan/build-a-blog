@@ -2,18 +2,10 @@
 
 {% block content %}
     <h1>All Entries</h1>
-    
-        <ul>
-            {% for new_post in post_list %}
-                
-                <li>
-                    <h2>
-                        <a href="/blog?id={{new_post.id}}">{{new_post.title}}</a>
-                    </h2>
-                    <p>{{new_post.body}}</p>
-                    <p>{{new_post.created}}</p>
-                    
-            
-            {% endfor %}        
-        </ul>
+    {% for blogpost in blogpost_list %}
+    <h2><a href="/blog?id={{blogpost.id}}">{{blogpost.title}}</a></h2>
+    <p>{{blogpost.body}}</p>
+    <p>{{blogpost.created}}</p>
+    {% endfor %}        
+        
 {% endblock %}
